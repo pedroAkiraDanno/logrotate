@@ -379,7 +379,7 @@ rotateLog(int *fd)
             *fd = openOutput();
 
             //to verbose 
-            printf("swithlogfile %d \n",lognumbers);   
+            printf("\n \n swithlogfile %d \n",lognumbers);   
             printf("sequence %llu \n",SEQUENCE);
 
 
