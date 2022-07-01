@@ -16,6 +16,7 @@ Read from stdin and output lines with timestamp in an output file (pathname), ro
     rm -fr logrotate/
     git clone https://github.com/pedroAkiraDanno/logrotate.git
     cd logrotate/src/
+    chmod +x process-to-log test1
 
     gcc -Wall -O2 logrotate.c -o logrotate
 
