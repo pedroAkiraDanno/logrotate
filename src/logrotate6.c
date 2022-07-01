@@ -391,7 +391,7 @@ rotateLog(int *fd)
                 qtd_swithlogfile_completed++;    
             } 
             printf("name of current logfile %s \n",newname); //test
-            printf("name of current fileSize %d \n",fileSize);  //test
+            //printf("name of current fileSize %d \n",fileSize);  //test
                          
             
 
