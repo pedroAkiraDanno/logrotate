@@ -427,7 +427,7 @@ rotateLog(int *fd)
 
             //to controfile
             c1.LOGFILEGROUP = LOGFILEGROUP; 
-            sprintf(string, "\n \n swithlogfile %d", lognumbers);
+            sprintf(string, "swithlogfile %d", lognumbers);
             controfile(string,c1);            
             //            
 
