@@ -16,6 +16,11 @@ Read from stdin and output lines with timestamp in an output file (pathname), ro
 
     ./process-to-log | ./logrotate <pathname> <size-limit-bytes>
 
+
+## Running example
+
+    ./process-to-log | ./logrotate file.log 100    
+
 ## Example output file:
 
     2013-06-02 00:47:51 > Lorem ipsum dolor sit amet, consectetur adipiscing elit.
