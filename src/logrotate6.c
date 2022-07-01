@@ -474,10 +474,10 @@ void archivelog( char *name){
     FILE *fd1,*fd2;
 
     //verbose
-    printf("name of logfile: %s\n",name );
+    printf("name of logfile: %s\n",newname );
 
     char ch;
-    fd1 = fopen (("%s", name),"r");
+    fd1 = fopen (("%s", newname),"r");
    
     snprintf(nameArcLog, sizeof(nameArcLog), "file.arc.%d", SequenceArcLog); // puts string into buffer
    
