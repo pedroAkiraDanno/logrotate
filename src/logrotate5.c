@@ -112,11 +112,8 @@ typedef struct
     int STATUS;  //ref by oracle -Log status: UNUSED CURRENT ACTIVE CLEARING CLEARING_CURRENT INACTIVE 
     //unsigned long long SequenceArcLog=1;
     int SequenceArcLog;
-    struct controlfile *next;    
-    char nameArcLog[2048]; //newname      
 
-
-}control;
+}controlfile;
 
 
 
@@ -132,7 +129,7 @@ typedef struct
  void archivelog( char *name); //function to archivelog file ex: file.arc.1, file.arc.2 ... each switch logfile/rotatelog enable copy to .arc_nn
  void print_copyright(void);
  void help();
- void controfile(char *values,control c1); //create the file controlfile to control where the sequence stop, the names of file and etc... to control everything
+ void controfile(char *values); //create the file controlfile to control where the sequence stop, the names of file and etc... to control everything
 
 
 
@@ -144,7 +141,9 @@ static unsigned long MAX_SIZE = 0; //max size of log file - bytes
 unsigned int LOGFILEGROUP =  4; //int quantidade de log files no logrotate referencia banco de dados oracle ex: file.log.1, file.log.2, file.log.3, file.log.4
 unsigned int LOGFILEMEMBER =  1;
 int archiveLogEnabled = 0;      // 0 = false (1 or > true)    process  LGWR ARCn processes -  True if log archiving is enabled for the source
+char *archiveLogDestination = NULL; // destination where go archive files .arc ex: /u01/arc/*.arc*
 int swithlogfile = 0; //force swith log file ex: file.log.1 to file.log.2 
+char *logDestination = NULL; // destination where go LOG files .log ex: /var/log/*.log*
 int lognumbers= 1; //to use in logroate for: file.log.1, file.log.2  file.log.3 ...
 /*each switch log need archivelog copy */
 unsigned long long SEQUENCE=1; //ref by oracle - redo log  Log sequence number
@@ -156,12 +155,8 @@ int SequenceArcLog=1;
 //int LOG_ARCHIVE_MAX_PROCESSES //ref by oracle database
 //int LOG_ARCHIVE_TRACE //ref by oracle database
 char string[1024]; //string to storage buffer the controlfile 
-control c1;
-//Optimal Flexible Architecture Log (OFAL)
-//defaul location OFAL
-char *logDestination = "/u01/app/log/logname1/logdata/"; // destination where go LOG files .log ex: /var/log/*.log /u01/app/oracle/oradata/orcl/tb_teste.dbf*
-char *archiveLogDestination = "/u01/app/log/logname1/logdata/arch/"; // destination where go archive files .arc ex: /u01/arc/*.arc*
-char *logrotatename = "logname1"; //logrotatename like name of database in oracle orcl /u01/app/log/logname1/logdata/*
+
+
 
 
 
@@ -389,9 +384,8 @@ rotateLog(int *fd)
 
 
             //to controfile
-            c1.lognumbers = lognumbers; 
             sprintf(string, "swithlogfile %d", lognumbers);
-            controfile(string,c1);
+            controfile(string);
             //            
 
 
@@ -423,20 +417,7 @@ rotateLog(int *fd)
 
             //to verbose 
             printf("rotateLog completed %d \n", LOGFILEGROUP);        
-
-
-            //to controfile
-            c1.LOGFILEGROUP = LOGFILEGROUP; 
-            sprintf(string, "swithlogfile %d", lognumbers);
-            controfile(string,c1);            
-            //            
-
-
-
-
         }
-
-  
 
     }
 }
@@ -462,8 +443,7 @@ void archivelog( char *name){
     
     //read fd1 
     //fd2 write to copy fd1 content
-    //char nameArcLog[2048]; //newname    
-    char *nameArcLog=NULL;     
+    char nameArcLog[2048]; //newname    
     FILE *fd1,*fd2;
 
     //verbose
@@ -477,18 +457,7 @@ void archivelog( char *name){
     //verbose 
     printf("name of archivelog: %s\n",nameArcLog );
 
-
-
-    //location + nameArcLog
-    //snprintf(archiveLogDestination, sizeof(archiveLogDestination), "%s%s", archiveLogDestination,nameArcLog); // puts string into buffer
-   // strcat(archiveLogDestination, nameArcLog); // concatena valores em cat
-    printf("location + nameArcLog: %s\n",archiveLogDestination );
-
-
-
-
-    //fd2 =fopen(("%s", nameArcLog),"w");
-    fd2 =fopen(("%s", nameArcLog),"w");    
+    fd2 =fopen(("%s", nameArcLog),"w");
 
     //copy content name to nameArcLog
     if(fd1 == NULL || fd2 == NULL){
@@ -517,7 +486,7 @@ void archivelog( char *name){
     total_time =   total_time / CLOCKS_PER_SEC;
     printf("Time for archivelog = %.6f seconds\n", total_time);        
 
-
+    
 
 }
 
@@ -643,7 +612,6 @@ process(void)
  
    "07-11-2020   08-01-2021, v3.0, Pedro Akira Danno Lima\n\n\n\n");
  
-
  
  }
 
@@ -699,19 +667,14 @@ process(void)
  }
 
 
- void version(){
-
-    printf("Version: 4.1");
-    
-
- }
 
 
 
 
 
 
- void controfile(char *values,control c1){
+ void controfile(char *values){
+
 
    FILE *fptr;
 
@@ -724,10 +687,11 @@ process(void)
       exit(1);             
    }
 
-   //fprintf(fptr,"%s",values);   
-   fprintf(fptr,"%d",c1.lognumbers);
-   fprintf(fptr,"%d",c1.LOGFILEGROUP);  
+
+   fprintf(fptr,"%s",values);
    fclose(fptr);
+
+
 
 
 
