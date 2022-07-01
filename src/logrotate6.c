@@ -386,7 +386,7 @@ rotateLog(int *fd)
             //to verbose 
             printf("\nswithlogfile %d \n",lognumbers);   
             printf("sequence %llu \n",SEQUENCE);
-            if (lognumbers == 1 ){
+            if (lognumbers = 1 ){
                 printf("qtd_swithlogfile_completed %d \n",qtd_swithlogfile_completed);                
                 qtd_swithlogfile_completed++;    
             } 
