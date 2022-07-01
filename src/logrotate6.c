@@ -163,7 +163,7 @@ char *logDestination = "/u01/app/log/logname1/logdata/"; // destination where go
 char *archiveLogDestination = "/u01/app/log/logname1/logdata/arch/"; // destination where go archive files .arc ex: /u01/arc/*.arc*
 char *logrotatename = "logname1"; //logrotatename like name of database in oracle orcl /u01/app/log/logname1/logdata/*
 
-
+int qtd_swithlogfile_completed =0; //test: qtd the swithlogfile then complete depends about LOGFILEGROUP ****nedd be improve how qtd_swithlogfile_completed works
 
 
 
@@ -386,7 +386,11 @@ rotateLog(int *fd)
             //to verbose 
             printf("\nswithlogfile %d \n",lognumbers);   
             printf("sequence %llu \n",SEQUENCE);
-
+            if (lognumbers == 1 ){
+                printf("qtd_swithlogfile_completed %d \n",qtd_swithlogfile_completed);                
+                qtd_swithlogfile_completed++;    
+            } 
+            
 
             //to controfile
             c1.lognumbers = lognumbers; 
