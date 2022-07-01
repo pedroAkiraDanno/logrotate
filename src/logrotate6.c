@@ -390,6 +390,7 @@ rotateLog(int *fd)
                 printf("qtd_swithlogfile_completed %d \n",qtd_swithlogfile_completed);                
                 qtd_swithlogfile_completed++;    
             } 
+            printf("name of logfile %s \n",name);              
             
 
             //to controfile
