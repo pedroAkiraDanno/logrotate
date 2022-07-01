@@ -37,4 +37,4 @@ Read from stdin and output lines with timestamp in an output file (pathname), ro
     2013-06-02 00:47:51 > Pellentesque in mi ac tellus porttitor condimentum.
 
 ---
-Inspired in [rotatelogs](http://httpd.apache.org/docs/2.2/programs/rotatelogs.html) and [cronolog](http://cronolog.org/) [logrotete](https://github.com/ggrandes/logrotate), this is C-minimalistic version.
+Inspired in [rotatelogs](http://httpd.apache.org/docs/2.2/programs/rotatelogs.html) , [cronolog](http://cronolog.org/) and [logrotete](https://github.com/ggrandes/logrotate), this is C-minimalistic version.
