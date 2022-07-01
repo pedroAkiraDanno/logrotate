@@ -404,7 +404,7 @@ rotateLog(int *fd)
              end_time = clock();
              total_time  =  (double) (end_time - start_time);
              total_time =   total_time / CLOCKS_PER_SEC;
-             printf("Time for logfile rotate = %.6f seconds\n\n", total_time); 
+             printf("Time for logfile rotate = %.6f seconds\n", total_time); 
 
 
 
@@ -427,7 +427,7 @@ rotateLog(int *fd)
 
             //to controfile
             c1.LOGFILEGROUP = LOGFILEGROUP; 
-            sprintf(string, "swithlogfile %d", lognumbers);
+            sprintf(string, "\n \n swithlogfile %d", lognumbers);
             controfile(string,c1);            
             //            
 
